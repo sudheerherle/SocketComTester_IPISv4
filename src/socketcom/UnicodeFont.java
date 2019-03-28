@@ -27,7 +27,7 @@ public class UnicodeFont {
     Graphics g = img.getGraphics();
 
     //Set the font to be used when drawing the string
-    Font f = new Font("Tahoma", Font.PLAIN, 8);
+    Font f = new Font("Tahoma", Font.PLAIN, 6);
     g.setFont(f);
 
     //Get the string visual bounds

@@ -6,6 +6,7 @@
 package socketcom;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
@@ -24,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javax.imageio.ImageIO;
 import static sun.security.krb5.Confounder.bytes;
 
 /**
@@ -73,6 +75,12 @@ public class FXMLDocumentController implements Initializable {
         UnicodeFont uf = new UnicodeFont();
         String t = textFieldText.getText();
         BufferedImage bi= uf.stringToBufferedImage(t);
+        File outputfile = new File("c:/users/i14746/desktop/image.bmp");
+        try {        
+            ImageIO.write(bi, "jpg", outputfile);
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         int psize = bi.getColorModel().getPixelSize();
         int pi_index=0;
         byte m_byte = 0;
