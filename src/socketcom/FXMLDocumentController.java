@@ -53,7 +53,17 @@ public class FXMLDocumentController implements Initializable {
     
     private SocketClient socket;
     
-    
+     private byte[] swapBytes(byte[] progMem)  
+ {
+    byte[] byteArray = progMem;
+    for(int y=0; y<byteArray.length;y++){
+    byte tempByte = byteArray[y];
+    byteArray[y]=byteArray[y+1];
+    byteArray[y+1]=tempByte;
+    y++;
+    }
+    return byteArray;
+ }
     @FXML
     private void btnSendDisplayDataAction(ActionEvent event) {
         ArrayList<Byte> list = getTextasByteList();
@@ -61,8 +71,9 @@ public class FXMLDocumentController implements Initializable {
         for(int b=0;b<list.size();b++){
             bData[b] = list.get(b);
         }
+        byte[] b = swapBytes(bData);
         DataPacket dp = new DataPacket();
-        dp.setTextData(bData);
+        dp.setTextData(b);
         byte[] data = dp.getDataAsBytes();
         String msg = SharedData.bytesToHex(data);           
         System.out.println(msg);
@@ -75,12 +86,12 @@ public class FXMLDocumentController implements Initializable {
         UnicodeFont uf = new UnicodeFont();
         String t = textFieldText.getText();
         BufferedImage bi= uf.stringToBufferedImage(t);
-        File outputfile = new File("c:/users/i14746/desktop/image.bmp");
-        try {        
-            ImageIO.write(bi, "jpg", outputfile);
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        File outputfile = new File("c:/image.bmp");
+//        try {        
+//            ImageIO.write(bi, "jpg", outputfile);
+//        } catch (IOException ex) {
+//            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         int psize = bi.getColorModel().getPixelSize();
         int pi_index=0;
         byte m_byte = 0;
@@ -95,6 +106,7 @@ public class FXMLDocumentController implements Initializable {
         byte[] n_data = new byte[s];
         ArrayList<Byte> list = new ArrayList<Byte>();
         for(int iw=0; iw<w;iw++){
+             m_byte=0;
             for(int ih=0;ih<h;){               
                for(int k=0;k<8;k++,ih++){                
                 if(k>=h || ih>=h){
@@ -113,6 +125,7 @@ public class FXMLDocumentController implements Initializable {
                 m_byte += temp;
                }
                list.add(m_byte);
+               m_byte=0;
                if(iw>=w){
                    break; 
                }

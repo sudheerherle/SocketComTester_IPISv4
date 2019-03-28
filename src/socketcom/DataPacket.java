@@ -157,8 +157,11 @@ public class DataPacket {
     void setTextData(byte[] bData) {
        if(bData.length>960)System.arraycopy(bData, 0, data, 12, 960);
        else {
-           int offset = 960 + 12 - bData.length;
-           System.arraycopy(bData, 0, data, offset, bData.length);
+//           int offset = 960 + 12 - bData.length;
+//byte[] b = new byte[] {(byte)00,(byte)00,(byte)0xff,(byte)0xff,(byte)0x40,
+//    (byte)0x0,(byte)0x10,0,0x08,00,0x04,00,0x02,0,0x04,00,0x08,
+//    00,0x10,00,(byte)0x80,00,(byte)0xff,(byte)0xff};
+           System.arraycopy(bData, 0, data, 12, bData.length);
        }
     }
 }
