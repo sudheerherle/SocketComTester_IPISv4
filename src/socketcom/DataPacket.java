@@ -11,6 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
+import java.util.ArrayList;
 
 /**
  *
@@ -25,7 +26,7 @@ public class DataPacket {
     /* ****d_length*******
     size = 1 byte if format identifier is not used, 2 if format identifier is used, so it is always 2 bytes in size.
     it is number of bytes in between source MSB and CRC LSB (including these two)*/    
-    public byte[] d_length = new byte[]{(byte)0x02,(byte)0xb7};     
+    public byte[] d_length = new byte[]{(byte)0x03,(byte)0xd7};     
     public byte[] d_source = new byte[]{(byte)0xfd,(byte)0x00};
     public byte[] d_destination = new byte[]{(byte)0x03,(byte)0x00};
     public byte packet_serial_number = 0x00;
@@ -42,7 +43,7 @@ public class DataPacket {
     public byte serial_number = 0;
     public byte continuity = 0;
     public byte nornam_or_default = 0;
-    public byte[] data = new byte[684];
+    public byte[] data = new byte[972];
     
     /*
     END OF BLOCK 2
@@ -76,30 +77,7 @@ public class DataPacket {
         byte_as_array[13] = continuity;
         byte_as_array[14] = nornam_or_default;
         DisplayDataPacket ddp = new DisplayDataPacket();
-        System.arraycopy(ddp.getDataAsBytes(), 0, data, 0, 12);    
-        /*
-        Trial code below.
-        */
-        byte[] pixels = new byte[672];
-//        for(int y=0;y<672;y++){
-//            if(y%2==0)
-//            pixels[y] = (byte) 0xff;
-//        }
-        UnicodeFont uf = new UnicodeFont();
-        BufferedImage bi= uf.stringToBufferedImage("A");
-        int pi_index=0;
-        byte m_byte = 0;
-//        DataBuffer f = bi.getData().getDataBuffer();
-        for(int w=0; w<bi.getWidth();w++){
-            for(int h=0;h<bi.getHeight();h++){
-               int d = bi.getRGB(w, h);
-               m_byte += d << 0;
-               
-            }
-        }
-        
-        System.arraycopy(pixels, 0, data, 12, 672);
-        
+        System.arraycopy(ddp.getDataAsBytes(), 0, data, 0, 12);         
         System.arraycopy(data, 0, byte_as_array, 15, data.length);
         byte[] crc_array = new byte[length_of_total_frame-6];
         System.arraycopy(byte_as_array, 4, crc_array, 0, crc_array.length);
@@ -174,5 +152,9 @@ public class DataPacket {
         int l = (d_length[0] << 8) + (d_length[1] & 0xff) ;
         l = l + 6; //Adding 6 because 2 identifiers + 2 format identifiers + 2 crc16
         return l;
+    }
+
+    void setTextData(byte[] bData) {
+       System.arraycopy(bData, 0, data, 12, bData.length);
     }
 }

@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Extra/SocketCom/src/socketcom/DataPacket.java</file>
-            <file>file:/D:/Extra/SocketCom/src/socketcom/Output.java</file>
-            <file>file:/D:/Extra/SocketCom/src/socketcom/UnicodeFont.java</file>
-            <file>file:/D:/Extra/SocketCom/src/socketcom/SocketCom.java</file>
-            <file>file:/D:/Extra/SocketCom/src/socketcom/InputStreamReader.java</file>
-            <file>file:/D:/Extra/SocketCom/src/socketcom/FXMLDocumentController.java</file>
-            <file>file:/D:/Extra/SocketCom/src/socketcom/SocketClient.java</file>
-            <file>file:/D:/Extra/SocketCom/src/socketcom/DisplayDataPacket.java</file>
-            <file>file:/D:/Extra/SocketCom/src/socketcom/FXMLDocument.fxml</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
